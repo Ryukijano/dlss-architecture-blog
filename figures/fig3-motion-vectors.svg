@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" font-family="Segoe UI, Arial, sans-serif">
+  <title>Motion vectors reproject history to the current frame</title>
+  <defs>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect width="960" height="330" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Motion vectors: where each pixel came from</text>
+  <!-- Previous frame -->
+  <g transform="translate(60,80)">
+    <text x="0" y="-14" font-size="15" fill="#444">Previous frame</text>
+    <rect x="0" y="0" width="240" height="180" fill="#f4f4f4" stroke="#888" stroke-width="2"/>
+    <rect x="60" y="60" width="60" height="60" fill="#3a6bc4"/>
+  </g>
+  <!-- Current frame -->
+  <g transform="translate(660,80)">
+    <text x="0" y="-14" font-size="15" fill="#444">Current frame</text>
+    <rect x="0" y="0" width="240" height="180" fill="#f4f4f4" stroke="#888" stroke-width="2"/>
+    <rect x="130" y="60" width="60" height="60" fill="#3a6bc4"/>
+  </g>
+  <!-- Motion vector arrow: from current pixel back to previous position -->
+  <line x1="700" y1="150" x2="370" y2="150" stroke="#c0392b" stroke-width="3" marker-end="url(#a2)" stroke-dasharray="8 5"/>
+  <text x="535" y="138" text-anchor="middle" font-size="14" fill="#c0392b">motion vector: current to previous</text>
+  <text x="480" y="300" text-anchor="middle" font-size="15" fill="#1a1a1a">The network looks up history at the old position and blends it in.</text>
+  <text x="480" y="320" text-anchor="middle" font-size="14" fill="#c0392b">Wrong or missing vectors make the history land in the wrong place: ghosting.</text>
+</svg>

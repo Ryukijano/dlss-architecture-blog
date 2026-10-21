@@ -1,0 +1,8 @@
+# Generated PNG exports (re-create with scripts/render-figures.ps1)
+figures/png/
+
+# OS and editor files
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

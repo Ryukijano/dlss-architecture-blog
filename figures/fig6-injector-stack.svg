@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" font-family="Segoe UI, Arial, sans-serif">
+  <title>DLL proxy stacking and injector conflicts</title>
+  <rect width="960" height="380" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">How injectors sit between the game and the GPU</text>
+  <g font-size="15" text-anchor="middle">
+    <rect x="330" y="65" width="300" height="46" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <text x="480" y="93" fill="#1a1a1a" font-weight="600">Game executable</text>
+
+    <rect x="330" y="140" width="300" height="46" rx="8" fill="#fde2e2" stroke="#c0392b" stroke-width="2"/>
+    <text x="480" y="168" fill="#1a1a1a" font-weight="600">dxgi.dll = ReShade (proxy)</text>
+
+    <rect x="330" y="215" width="300" height="46" rx="8" fill="#fde2e2" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="480" y="243" fill="#1a1a1a" font-weight="600">winmm.dll = OptiScaler (proxy)</text>
+
+    <rect x="330" y="290" width="300" height="46" rx="8" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+    <text x="480" y="318" fill="#1a1a1a" font-weight="600">Real system and NVIDIA DLLs</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none">
+    <line x1="480" y1="111" x2="480" y2="138"/>
+    <line x1="480" y1="186" x2="480" y2="213"/>
+    <line x1="480" y1="261" x2="480" y2="288"/>
+  </g>
+  <g font-size="14" fill="#444">
+    <text x="660" y="165">Both tools hook the same</text>
+    <text x="660" y="184">Present and Streamline calls.</text>
+    <text x="660" y="240">Hook order decides which one</text>
+    <text x="660" y="259">wins. Conflicting detours can</text>
+    <text x="660" y="278">crash the game or corrupt frames.</text>
+  </g>
+  <text x="480" y="362" text-anchor="middle" font-size="14" fill="#444">Rule of thumb: one proxy DLL per game folder, and check which tool owns each hook.</text>
+</svg>

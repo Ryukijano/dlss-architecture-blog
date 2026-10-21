@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="Segoe UI, Arial, sans-serif">
+  <title>Frame generation timeline: 2x and 4x</title>
+  <rect width="960" height="400" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Frame generation: real frames, then generated frames between them</text>
+  <g font-size="15" fill="#1a1a1a">
+    <text x="30" y="110">Rendered (real)</text>
+    <text x="30" y="200">2x mode</text>
+    <text x="30" y="290">4x mode</text>
+  </g>
+  <!-- Real frames row -->
+  <g>
+    <rect x="200" y="85" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="275" y="110" text-anchor="middle" fill="#fff" font-size="15">Real 1</text>
+    <rect x="450" y="85" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="525" y="110" text-anchor="middle" fill="#fff" font-size="15">Real 2</text>
+    <rect x="700" y="85" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="775" y="110" text-anchor="middle" fill="#fff" font-size="15">Real 3</text>
+  </g>
+  <!-- 2x row: one generated per real -->
+  <g>
+    <rect x="200" y="175" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="275" y="200" text-anchor="middle" fill="#fff" font-size="15">Real 1</text>
+    <rect x="325" y="175" width="100" height="40" rx="6" fill="#76b900"/><text x="375" y="200" text-anchor="middle" fill="#1a1a1a" font-size="14">Gen</text>
+    <rect x="450" y="175" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="525" y="200" text-anchor="middle" fill="#fff" font-size="15">Real 2</text>
+    <rect x="575" y="175" width="100" height="40" rx="6" fill="#76b900"/><text x="625" y="200" text-anchor="middle" fill="#1a1a1a" font-size="14">Gen</text>
+  </g>
+  <!-- 4x row: three generated per real -->
+  <g>
+    <rect x="200" y="265" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="275" y="290" text-anchor="middle" fill="#fff" font-size="15">Real 1</text>
+    <rect x="352" y="265" width="50" height="40" rx="6" fill="#76b900"/>
+    <rect x="404" y="265" width="50" height="40" rx="6" fill="#76b900"/>
+    <rect x="456" y="265" width="50" height="40" rx="6" fill="#76b900"/>
+    <rect x="450" y="265" width="0" height="0"/>
+    <rect x="508" y="265" width="150" height="40" rx="6" fill="#3a6bc4"/><text x="583" y="290" text-anchor="middle" fill="#fff" font-size="15">Real 2</text>
+  </g>
+  <text x="480" y="350" text-anchor="middle" font-size="14" fill="#444">Generated frames (green) are interpolated from real frames. Each real frame adds latency,</text>
+  <text x="480" y="372" text-anchor="middle" font-size="14" fill="#444">which is why Reflex is needed alongside frame generation.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="Segoe UI, Arial, sans-serif">
+  <title>Hudless buffer and UI recomposition</title>
+  <rect width="960" height="360" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Why frame generation needs a hudless buffer</text>
+  <g font-size="15" text-anchor="middle">
+    <!-- Step 1: scene before UI -->
+    <rect x="30" y="80" width="260" height="170" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <text x="160" y="110" font-weight="600" fill="#1a1a1a">1. Hudless scene</text>
+    <rect x="60" y="130" width="200" height="100" fill="#dfe8f7" stroke="#8aa6d6"/>
+    <text x="160" y="186" fill="#444" font-size="13">scene only, no HUD</text>
+
+    <!-- Step 2: interpolated frame -->
+    <rect x="350" y="80" width="260" height="170" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/>
+    <text x="480" y="110" font-weight="600" fill="#1a1a1a">2. Generated frame</text>
+    <rect x="380" y="130" width="200" height="100" fill="#cfe9a8" stroke="#76b900"/>
+    <text x="480" y="186" fill="#444" font-size="13">interpolated from scene</text>
+
+    <!-- Step 3: UI recomposited -->
+    <rect x="670" y="80" width="260" height="170" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+    <text x="800" y="110" font-weight="600" fill="#1a1a1a">3. UI recomposited</text>
+    <rect x="700" y="130" width="200" height="100" fill="#f7dfb8" stroke="#c77700"/>
+    <rect x="740" y="150" width="120" height="18" fill="#c77700"/>
+    <rect x="740" y="180" width="80" height="18" fill="#c77700"/>
+    <text x="800" y="262" fill="#444" font-size="13">HUD drawn on top, not interpolated</text>
+  </g>
+  <g stroke="#555" stroke-width="2" marker-end="url(#ar5)">
+  </g>
+  <defs>
+    <marker id="ar5" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <line x1="295" y1="165" x2="345" y2="165" stroke="#555" stroke-width="2" marker-end="url(#ar5)"/>
+  <line x1="615" y1="165" x2="665" y2="165" stroke="#555" stroke-width="2" marker-end="url(#ar5)"/>
+  <text x="480" y="320" text-anchor="middle" font-size="14" fill="#444">Without step 1, the HUD would smear between generated frames because it has no real motion.</text>
+</svg>

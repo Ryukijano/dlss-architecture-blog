@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" font-family="Segoe UI, Arial, sans-serif">
+  <title>Per-frame rendering pipeline with DLSS</title>
+  <rect width="960" height="300" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">One frame through a DLSS-enabled engine</text>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+  </defs>
+  <g font-size="15" text-anchor="middle">
+    <rect x="20"  y="110" width="150" height="90" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <text x="95" y="145" fill="#1a1a1a" font-weight="600">Render</text>
+    <text x="95" y="167" fill="#444" font-size="13">at 1080p + jitter</text>
+
+    <rect x="210" y="110" width="150" height="90" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <text x="285" y="145" fill="#1a1a1a" font-weight="600">Tag inputs</text>
+    <text x="285" y="167" fill="#444" font-size="13">color, MV, depth</text>
+
+    <rect x="400" y="110" width="170" height="90" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+    <text x="485" y="145" fill="#1a1a1a" font-weight="600">DLSS SR / RR</text>
+    <text x="485" y="167" fill="#444" font-size="13">before tonemapping</text>
+
+    <rect x="600" y="110" width="150" height="90" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+    <text x="675" y="145" fill="#1a1a1a" font-weight="600">Tonemap, UI</text>
+    <text x="675" y="167" fill="#444" font-size="13">at 4K</text>
+
+    <rect x="790" y="110" width="150" height="90" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+    <text x="865" y="145" fill="#1a1a1a" font-weight="600">Present</text>
+    <text x="865" y="167" fill="#444" font-size="13">to display</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <line x1="170" y1="155" x2="208" y2="155"/>
+    <line x1="360" y1="155" x2="398" y2="155"/>
+    <line x1="570" y1="155" x2="598" y2="155"/>
+    <line x1="750" y1="155" x2="788" y2="155"/>
+  </g>
+  <text x="480" y="245" text-anchor="middle" font-size="14" fill="#444">The network needs linear HDR light, so it runs before tonemapping.</text>
+  <text x="480" y="270" text-anchor="middle" font-size="14" fill="#444">UI is drawn after upscaling, because UI pixels have no motion vectors.</text>
+</svg>
