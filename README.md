@@ -29,6 +29,39 @@ can break them.
 Open `post.md` in any Markdown viewer. Images use relative paths, so keep the
 `figures/` folder next to the post.
 
+## Figures
+
+All six diagrams are original SVGs (plain XML, editable in any text editor).
+They appear in `post.md` in this order:
+
+**1. DLSS frame pipeline** — `figures/fig1-pipeline.svg` (§1)
+
+![One frame through a DLSS-enabled engine](figures/fig1-pipeline.svg)
+
+**2. Temporal jitter and accumulation** — `figures/fig2-jitter.svg` (§2)
+
+![Sub-pixel jitter accumulates samples across frames](figures/fig2-jitter.svg)
+
+**3. Motion-vector reprojection** — `figures/fig3-motion-vectors.svg` (§2)
+
+![Motion vectors reproject history to the current frame](figures/fig3-motion-vectors.svg)
+
+**4. Frame generation timeline** — `figures/fig4-frame-generation.svg` (§4)
+
+![Frame generation timeline: 2x and 4x](figures/fig4-frame-generation.svg)
+
+**5. Hudless buffer and UI recomposition** — `figures/fig5-hudless.svg` (§4)
+
+![Hudless buffer and UI recomposition](figures/fig5-hudless.svg)
+
+**6. Injector and proxy-DLL stack** — `figures/fig6-injector-stack.svg` (§8)
+
+![DLL proxy stacking and injector conflicts](figures/fig6-injector-stack.svg)
+
+Need raster copies? `scripts/render-figures.ps1` exports all six to PNG (see
+below). There are no GIFs in the repo; to make one, convert a PNG sequence or
+screen recording with a tool such as ScreenToGif or `ffmpeg`.
+
 ## Sources and fact checking
 
 Most technical claims in `post.md` are taken from NVIDIA's own announcements or
