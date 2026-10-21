@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="Segoe UI, Arial, sans-serif">
+  <title>DLSS 5: 3D-Guided Neural Rendering Pipeline</title>
+  <rect width="960" height="360" fill="#ffffff"/>
+  <text x="480" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">DLSS 5: 3D-Guided Neural Rendering</text>
+  <defs>
+    <marker id="ar8" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <marker id="ar8g" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#76b900"/>
+    </marker>
+  </defs>
+
+  <!-- Left column: Structured 3D Engine Inputs -->
+  <g transform="translate(30,70)" font-size="14" text-anchor="middle">
+    <rect x="0" y="0" width="230" height="210" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <text x="115" y="28" font-size="16" font-weight="600" fill="#1a1a1a">3D Engine Anchor Inputs</text>
+    <rect x="20" y="44" width="190" height="34" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+    <text x="115" y="66" fill="#1a1a1a">Rendered Color + Depth</text>
+    <rect x="20" y="88" width="190" height="34" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+    <text x="115" y="110" fill="#1a1a1a">Motion Vectors + Temporal State</text>
+    <rect x="20" y="132" width="190" height="34" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+    <text x="115" y="154" fill="#1a1a1a">Normals / Albedo / Roughness</text>
+    <text x="115" y="192" font-size="12" fill="#444">Tagged via NVIDIA Streamline</text>
+  </g>
+
+  <!-- Center column: Neural Rendering Model + Art Controls -->
+  <g transform="translate(335,70)" font-size="14" text-anchor="middle">
+    <rect x="0" y="0" width="290" height="210" rx="12" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+    <text x="145" y="30" font-size="16" font-weight="600" fill="#1a1a1a">DLSS 5 Neural Renderer</text>
+    <text x="145" y="52" font-size="13" fill="#2d5a00">3D-Guided Generative Lighting Model</text>
+    <rect x="22" y="68" width="246" height="58" rx="8" fill="#ffffff" stroke="#76b900" stroke-width="1.5"/>
+    <text x="145" y="92" fill="#1a1a1a" font-weight="600">Scene &amp; Material Understanding</text>
+    <text x="145" y="112" font-size="12" fill="#444">Subsurface skin, hair, fabric sheen, GI</text>
+    <rect x="22" y="138" width="246" height="52" rx="8" fill="#fff4e5" stroke="#c77700" stroke-width="1.5"/>
+    <text x="145" y="160" fill="#1a1a1a" font-weight="600">Developer Art-Direction Controls</text>
+    <text x="145" y="178" font-size="12" fill="#444">Intensity, masking, color grading</text>
+  </g>
+
+  <!-- Right column: Temporally Stable Output -->
+  <g transform="translate(700,70)" font-size="14" text-anchor="middle">
+    <rect x="0" y="0" width="230" height="210" rx="10" fill="#f7f9fc" stroke="#2d5a00" stroke-width="2"/>
+    <text x="115" y="28" font-size="16" font-weight="600" fill="#1a1a1a">Photoreal Frame Output</text>
+    <rect x="20" y="48" width="190" height="110" rx="8" fill="#cfe9a8" stroke="#76b900" stroke-width="2"/>
+    <text x="115" y="88" font-weight="600" fill="#1a1a1a">Deterministic &amp; Coherent</text>
+    <text x="115" y="110" font-size="12" fill="#1a1a1a">Anchored to 3D geometry</text>
+    <text x="115" y="130" font-size="12" fill="#1a1a1a">across frames up to 4K</text>
+    <text x="115" y="186" font-size="12" fill="#444">Composes with DLSS 4.5 SR &amp; MFG</text>
+  </g>
+
+  <!-- Connecting arrows -->
+  <line x1="262" y1="175" x2="330" y2="175" stroke="#555" stroke-width="2.5" marker-end="url(#ar8)"/>
+  <line x1="627" y1="175" x2="695" y2="175" stroke="#76b900" stroke-width="2.5" marker-end="url(#ar8g)"/>
+
+  <text x="480" y="315" text-anchor="middle" font-size="14" fill="#1a1a1a">Unlike unconstrained video diffusion, DLSS 5 is conditioned on per-frame 3D engine buffers and motion vectors so lighting stays locked to geometry.</text>
+  <text x="480" y="338" text-anchor="middle" font-size="13" fill="#444">Official NVIDIA support targets GeForce RTX 50 Series (with planned RTX 40 tuning); running on RTX 40 via community wrappers is unofficial.</text>
+</svg>
