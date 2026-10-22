@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 610" font-family="Segoe UI, Arial, sans-serif">
+  <title>How the DLSS models changed architecture, generation by generation</title>
+  <rect width="960" height="610" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Model architectures by generation</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#444">Each row is one job. Each column is a generation. Architecture facts are NVIDIA's unless marked.</text>
+
+  <!-- column headers -->
+  <g font-size="15" font-weight="600" fill="#1a1a1a" text-anchor="middle">
+    <text x="315" y="88">Step 1</text>
+    <text x="580" y="88">Step 2</text>
+    <text x="832" y="88">Step 3</text>
+  </g>
+
+  <!-- Row 1: Super Resolution and Ray Reconstruction -->
+  <rect x="20" y="100" width="150" height="150" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+  <text x="95" y="138" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Super Resolution</text>
+  <text x="95" y="158" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">and Ray Reconstruction</text>
+  <text x="95" y="188" text-anchor="middle" font-size="12" fill="#444">Per-frame reconstruction</text>
+  <text x="95" y="206" text-anchor="middle" font-size="12" fill="#444">from jittered input</text>
+
+  <rect x="190" y="100" width="250" height="150" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+  <text x="315" y="124" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 2 and 3: CNN</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="202" y="146">· Convolutional network, temporal history</text>
+    <text x="202" y="164">· Inputs: jittered color, motion vectors,</text>
+    <text x="202" y="180">  depth, exposure</text>
+    <text x="202" y="198">· Presets A to F (pretrained variants)</text>
+    <text x="202" y="216">· NVIDIA: "limits of the CNN architecture"</text>
+    <text x="202" y="234" fill="#444">Layer counts not published</text>
+  </g>
+
+  <rect x="455" y="100" width="250" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/>
+  <text x="580" y="124" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 4: Vision Transformer</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="467" y="146">· Self-attention over the whole frame</text>
+    <text x="467" y="164">  and across accumulated frames</text>
+    <text x="467" y="182">· NVIDIA: "double the parameters" of CNN</text>
+    <text x="467" y="200">· Custom CUDA kernels, FP8 on Ada and</text>
+    <text x="467" y="216">  Blackwell tensor cores</text>
+    <text x="467" y="234" fill="#444">Patch and token layout not published</text>
+  </g>
+
+  <rect x="725" y="100" width="215" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+  <text x="832" y="124" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 4.5: 2nd-gen</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="737" y="146">· 5x compute of 1st-gen Transformer</text>
+    <text x="737" y="164">· Presets M (Performance), L (Ultra</text>
+    <text x="737" y="180">  Perf, 4K), K (other modes)</text>
+    <text x="737" y="198">· RR Preset F: +35% compute,</text>
+    <text x="737" y="214">  +20% parameters (NVIDIA)</text>
+    <text x="737" y="234" fill="#444">Trained on a larger dataset</text>
+  </g>
+
+  <!-- Row 2: Frame Generation -->
+  <rect x="20" y="270" width="150" height="150" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+  <text x="95" y="308" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Frame Generation</text>
+  <text x="95" y="328" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">and Multi Frame</text>
+  <text x="95" y="348" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Generation</text>
+  <text x="95" y="380" text-anchor="middle" font-size="12" fill="#444">Synthesize frames</text>
+  <text x="95" y="398" text-anchor="middle" font-size="12" fill="#444">between real frames</text>
+
+  <rect x="190" y="270" width="250" height="150" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+  <text x="315" y="294" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 3 FG: CNN autoencoder</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="202" y="316">· Inputs: current and prior frame,</text>
+    <text x="202" y="332">  OFA flow field, motion vectors, depth</text>
+    <text x="202" y="350">· One generated frame per real frame</text>
+    <text x="202" y="368">· Needs the RTX 40 OFA hardware</text>
+    <text x="202" y="386">· Multi-frame generation not offered</text>
+    <text x="202" y="406" fill="#444">Hudless and UI buffers passed in</text>
+  </g>
+
+  <rect x="455" y="270" width="250" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/>
+  <text x="580" y="294" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 4: AI flow + split net</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="467" y="316">· Learned optical flow replaces the OFA</text>
+    <text x="467" y="334">· Network split: shared half once per pair,</text>
+    <text x="467" y="350">  small half per generated frame</text>
+    <text x="467" y="368">· Up to 3 generated frames (4x), RTX 50</text>
+    <text x="467" y="386">· New model also on RTX 40 (40% faster,</text>
+    <text x="467" y="402">  30% less VRAM, NVIDIA)</text>
+  </g>
+
+  <rect x="725" y="270" width="215" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+  <text x="832" y="294" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 4.5: 6x and Preset B</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="737" y="316">· Up to 5 generated frames (6x)</text>
+    <text x="737" y="334">· Dynamic MFG picks the multiplier</text>
+    <text x="737" y="352">· Preset B FG model reads extra UI</text>
+    <text x="737" y="368">  buffers (Tom's Hardware report)</text>
+    <text x="737" y="386">· Preset B: RTX 40 and 50 (report)</text>
+    <text x="737" y="406" fill="#444">Dynamic MFG and 6x: RTX 50 only</text>
+  </g>
+
+  <!-- Row 3: DLSS 5 -->
+  <rect x="20" y="440" width="150" height="150" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+  <text x="95" y="478" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">DLSS 5</text>
+  <text x="95" y="498" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">3D-Guided</text>
+  <text x="95" y="518" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Neural Rendering</text>
+  <text x="95" y="556" text-anchor="middle" font-size="12" fill="#444">Generate final appearance</text>
+
+  <rect x="190" y="440" width="250" height="150" rx="10" fill="#f7f9fc" stroke="#888" stroke-width="2"/>
+  <text x="315" y="464" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Inputs at inference</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="202" y="486">· Current rendered color frame</text>
+    <text x="202" y="504">· Engine motion vectors</text>
+    <text x="202" y="522">· Carried temporal state</text>
+    <text x="202" y="540">· Artistic-direction values (intensity,</text>
+    <text x="202" y="558">  color grading, masks)</text>
+    <text x="202" y="578" fill="#444">Causal: one frame in, one frame out</text>
+  </g>
+
+  <rect x="455" y="440" width="250" height="150" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+  <text x="580" y="464" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">One-step pixel diffusion</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="467" y="486">· One inference step, not a multi-step loop</text>
+    <text x="467" y="504">· Deterministic, temporally stable per frame</text>
+    <text x="467" y="522">· Training only: consistency supervision</text>
+    <text x="467" y="540">  from renderer attributes (albedo, normals,</text>
+    <text x="467" y="558">  lighting, as reported)</text>
+    <text x="467" y="578" fill="#444">Compute budget set per frame</text>
+  </g>
+
+  <rect x="725" y="440" width="215" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+  <text x="832" y="464" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a">Status (22 Oct 2026)</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="737" y="486">· Launched Sept 2026, NBA 2K27</text>
+    <text x="737" y="504">· Oct update: ~118M parameters,</text>
+    <text x="737" y="520">  half the GPU overhead</text>
+    <text x="737" y="540">· RTX 50 only</text>
+    <text x="737" y="558">· RTX 40 official support planned,</text>
+    <text x="737" y="574">  no date</text>
+  </g>
+</svg>

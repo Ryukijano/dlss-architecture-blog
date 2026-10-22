@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" font-family="Segoe UI, Arial, sans-serif">
+  <title>Streaming Multiprocessor layout: Ampere, Ada, and Blackwell</title>
+  <rect width="960" height="640" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Streaming Multiprocessor (SM): Ampere, Ada, Blackwell</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#444">Each SM has 4 sub-cores. Each sub-core has a warp scheduler and a tensor core.</text>
+
+  <!-- Ampere -->
+  <g transform="translate(30,70)">
+    <text x="140" y="16" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Ampere (RTX 30)</text>
+    <text x="140" y="34" text-anchor="middle" font-size="12" fill="#444">GA102 SM, compute 8.6</text>
+    <rect x="0" y="46" width="280" height="316" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+    <g font-size="11" fill="#1a1a1a">
+      <rect x="8" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+      <text x="70" y="74" text-anchor="middle" font-weight="600">Sub-core 0</text>
+      <text x="70" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="112" text-anchor="middle">16 FP32 +</text>
+      <text x="70" y="126" text-anchor="middle">16 FP32/INT32</text>
+      <text x="70" y="146" text-anchor="middle">Tensor core 3rd gen</text>
+      <rect x="143" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+      <text x="205" y="74" text-anchor="middle" font-weight="600">Sub-core 1</text>
+      <text x="205" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="112" text-anchor="middle">16 FP32 +</text>
+      <text x="205" y="126" text-anchor="middle">16 FP32/INT32</text>
+      <text x="205" y="146" text-anchor="middle">Tensor core 3rd gen</text>
+      <rect x="8" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+      <text x="70" y="209" text-anchor="middle" font-weight="600">Sub-core 2</text>
+      <text x="70" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="247" text-anchor="middle">16 FP32 +</text>
+      <text x="70" y="261" text-anchor="middle">16 FP32/INT32</text>
+      <text x="70" y="281" text-anchor="middle">Tensor core 3rd gen</text>
+      <rect x="143" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#3a6bc4"/>
+      <text x="205" y="209" text-anchor="middle" font-weight="600">Sub-core 3</text>
+      <text x="205" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="247" text-anchor="middle">16 FP32 +</text>
+      <text x="205" y="261" text-anchor="middle">16 FP32/INT32</text>
+      <text x="205" y="281" text-anchor="middle">Tensor core 3rd gen</text>
+    </g>
+    <text x="140" y="332" text-anchor="middle" font-size="11" fill="#1a1a1a">1 RT core (2nd gen) · 128 KB L1/shared</text>
+    <text x="140" y="348" text-anchor="middle" font-size="11" fill="#1a1a1a">256 KB register file</text>
+  </g>
+
+  <!-- Ada -->
+  <g transform="translate(340,70)">
+    <text x="140" y="16" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Ada Lovelace (RTX 40)</text>
+    <text x="140" y="34" text-anchor="middle" font-size="12" fill="#444">AD102 SM, compute 8.9</text>
+    <rect x="0" y="46" width="280" height="316" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+    <g font-size="11" fill="#1a1a1a">
+      <rect x="8" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#c77700"/>
+      <text x="70" y="74" text-anchor="middle" font-weight="600">Sub-core 0</text>
+      <text x="70" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="112" text-anchor="middle">16 FP32 +</text>
+      <text x="70" y="126" text-anchor="middle">16 FP32/INT32</text>
+      <text x="70" y="146" text-anchor="middle">Tensor core 4th gen</text>
+      <rect x="143" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#c77700"/>
+      <text x="205" y="74" text-anchor="middle" font-weight="600">Sub-core 1</text>
+      <text x="205" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="112" text-anchor="middle">16 FP32 +</text>
+      <text x="205" y="126" text-anchor="middle">16 FP32/INT32</text>
+      <text x="205" y="146" text-anchor="middle">Tensor core 4th gen</text>
+      <rect x="8" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#c77700"/>
+      <text x="70" y="209" text-anchor="middle" font-weight="600">Sub-core 2</text>
+      <text x="70" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="247" text-anchor="middle">16 FP32 +</text>
+      <text x="70" y="261" text-anchor="middle">16 FP32/INT32</text>
+      <text x="70" y="281" text-anchor="middle">Tensor core 4th gen</text>
+      <rect x="143" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#c77700"/>
+      <text x="205" y="209" text-anchor="middle" font-weight="600">Sub-core 3</text>
+      <text x="205" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="247" text-anchor="middle">16 FP32 +</text>
+      <text x="205" y="261" text-anchor="middle">16 FP32/INT32</text>
+      <text x="205" y="281" text-anchor="middle">Tensor core 4th gen</text>
+    </g>
+    <text x="140" y="332" text-anchor="middle" font-size="11" fill="#1a1a1a">1 RT core (3rd gen) · 128 KB L1/shared</text>
+    <text x="140" y="348" text-anchor="middle" font-size="11" fill="#1a1a1a">256 KB register file</text>
+  </g>
+
+  <!-- Blackwell -->
+  <g transform="translate(650,70)">
+    <text x="140" y="16" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Blackwell (RTX 50)</text>
+    <text x="140" y="34" text-anchor="middle" font-size="12" fill="#444">GB202 SM, compute 12.0</text>
+    <rect x="0" y="46" width="280" height="316" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/>
+    <g font-size="11" fill="#1a1a1a">
+      <rect x="8" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#76b900"/>
+      <text x="70" y="74" text-anchor="middle" font-weight="600">Sub-core 0</text>
+      <text x="70" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="112" text-anchor="middle">32 unified lanes</text>
+      <text x="70" y="126" text-anchor="middle">FP32 or INT32</text>
+      <text x="70" y="146" text-anchor="middle">Tensor core 5th gen</text>
+      <rect x="143" y="54" width="125" height="125" rx="6" fill="#ffffff" stroke="#76b900"/>
+      <text x="205" y="74" text-anchor="middle" font-weight="600">Sub-core 1</text>
+      <text x="205" y="94" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="112" text-anchor="middle">32 unified lanes</text>
+      <text x="205" y="126" text-anchor="middle">FP32 or INT32</text>
+      <text x="205" y="146" text-anchor="middle">Tensor core 5th gen</text>
+      <rect x="8" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#76b900"/>
+      <text x="70" y="209" text-anchor="middle" font-weight="600">Sub-core 2</text>
+      <text x="70" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="70" y="247" text-anchor="middle">32 unified lanes</text>
+      <text x="70" y="261" text-anchor="middle">FP32 or INT32</text>
+      <text x="70" y="281" text-anchor="middle">Tensor core 5th gen</text>
+      <rect x="143" y="189" width="125" height="125" rx="6" fill="#ffffff" stroke="#76b900"/>
+      <text x="205" y="209" text-anchor="middle" font-weight="600">Sub-core 3</text>
+      <text x="205" y="229" text-anchor="middle">Warp scheduler</text>
+      <text x="205" y="247" text-anchor="middle">32 unified lanes</text>
+      <text x="205" y="261" text-anchor="middle">FP32 or INT32</text>
+      <text x="205" y="281" text-anchor="middle">Tensor core 5th gen</text>
+    </g>
+    <text x="140" y="332" text-anchor="middle" font-size="11" fill="#1a1a1a">1 RT core (4th gen) · 128 KB L1/shared</text>
+    <text x="140" y="348" text-anchor="middle" font-size="11" fill="#1a1a1a">256 KB register file</text>
+  </g>
+
+  <!-- What changes -->
+  <g font-size="13" fill="#1a1a1a">
+    <text x="30" y="458" font-weight="600">Ampere → Ada</text>
+    <text x="30" y="477" fill="#444">· Tensor cores gain FP8 (4th gen)</text>
+    <text x="30" y="495" fill="#444">· RT core 3rd gen: opacity and displaced micro-meshes</text>
+    <text x="30" y="513" fill="#444">· Same 128 CUDA cores per SM; L2 grows from 6 MB (GA102) to 72 MB (AD102)</text>
+
+    <text x="30" y="545" font-weight="600">Ada → Blackwell</text>
+    <text x="30" y="564" fill="#444">· Tensor cores gain FP4 (NVFP4) and a second-gen FP8 transformer engine</text>
+    <text x="30" y="582" fill="#444">· Unified FP32/INT32 datapath, built for neural shaders</text>
+    <text x="30" y="600" fill="#444">· RT core 4th gen: triangle cluster intersection (Mega Geometry)</text>
+  </g>
+  <text x="480" y="624" text-anchor="middle" font-size="13" fill="#444">Per-SM counts are the same across generations. The 50 series change is in datapaths, precisions, and RT, not SM count.</text>
+</svg>

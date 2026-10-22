@@ -29,6 +29,8 @@ Three points matter most for anyone deciding what to buy or enable:
 | Reflex 2 with Frame Warp | **Announced Jan 2025, not shipping** | RTX 50 first, other RTX later | NVIDIA page still says "coming soon"; no shipping game found |
 | DLSS 5, 3D-Guided Neural Rendering | Launched Sept 2026 in NBA 2K27; October model update | RTX 50 only (plus GeForce NOW and RTX Spark laptops) | NVIDIA post, Oct 13 2026 |
 
+For the hardware underneath these models (SM layouts across Ampere, Ada, and Blackwell, tensor core precisions, the Optical Flow Accelerator, Blackwell's display engine, and each model's architecture), see the companion article [`hardware-architecture.md`](hardware-architecture.md).
+
 ![One frame through a DLSS-enabled engine](figures/fig1-pipeline.svg)
 
 ---

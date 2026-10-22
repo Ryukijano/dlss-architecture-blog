@@ -2,7 +2,7 @@
 
 A technical article, with original figures and reproducible scripts, on NVIDIA's neural rendering stack as of October 2026. It covers DLSS Super Resolution, Ray Reconstruction, Frame Generation and Multi Frame Generation, NVIDIA Reflex 2, and DLSS 5 (3D-Guided Neural Rendering). It also explains how games wire these models through Streamline and NGX, and why community injectors collide with them.
 
-> **Read the article:** [`post.md`](post.md)
+> **Read the article:** [`post.md`](post.md) · **Hardware deep dive:** [`hardware-architecture.md`](hardware-architecture.md)
 
 ---
 
@@ -79,11 +79,40 @@ All figures are original SVG diagrams or schematic animations generated from thi
 
 ---
 
+## Hardware and Architecture
+
+The companion article [`hardware-architecture.md`](hardware-architecture.md) covers the hardware in detail.
+
+**SM layout across Ampere, Ada, and Blackwell** (`figures/fig9-sm-generations.svg`)
+
+![SM layout across Ampere, Ada, and Blackwell](figures/fig9-sm-generations.svg)
+
+**Tensor core precisions by generation** (`figures/fig10-tensor-precision.svg`)
+
+![Tensor core precision support by generation](figures/fig10-tensor-precision.svg)
+
+**Optical flow: hardware OFA versus AI flow** (`figures/fig11-ofa-pipeline.svg`)
+
+![Optical flow: hardware OFA versus AI optical flow](figures/fig11-ofa-pipeline.svg)
+
+**Multi Frame Generation: the network split** (`figures/fig12-mfg-split.svg`)
+
+![Multi Frame Generation: one shared network half, one small half per frame](figures/fig12-mfg-split.svg)
+
+**Frame pacing: CPU pacing versus Flip Metering** (`figures/fig13-flip-metering.svg`)
+
+![Frame pacing: CPU pacing versus Flip Metering](figures/fig13-flip-metering.svg)
+
+**Model architectures by generation** (`figures/fig14-model-architectures.svg`)
+
+![How the DLSS models changed architecture](figures/fig14-model-architectures.svg)
+
 ## Repository Layout
 
 ```text
 .
 ├── post.md                              # The article (Markdown)
+├── hardware-architecture.md             # Hardware and model architecture deep dive
 ├── README.md                            # This file
 ├── figures/
 │   ├── fig1-pipeline.svg                # §1  Engine frame pipeline
@@ -94,6 +123,12 @@ All figures are original SVG diagrams or schematic animations generated from thi
 │   ├── fig6-injector-stack.svg          # §9  Proxy-DLL conflicts
 │   ├── fig7-reflex2-frame-warp.svg      # §6  Reflex 2 (announced)
 │   ├── fig8-dlss5-neural-rendering.svg  # §7  DLSS 5
+│   ├── fig9-sm-generations.svg          # HW  SM layout, Ampere / Ada / Blackwell
+│   ├── fig10-tensor-precision.svg       # HW  Tensor core precisions
+│   ├── fig11-ofa-pipeline.svg           # HW  Optical Flow Accelerator vs AI flow
+│   ├── fig12-mfg-split.svg              # HW  MFG network split
+│   ├── fig13-flip-metering.svg          # HW  CPU pacing vs Flip Metering
+│   ├── fig14-model-architectures.svg    # HW  Model architectures by generation
 │   ├── anim-jitter-accumulation.gif     # §3  Schematic
 │   ├── anim-mfg-pacing.gif              # §5  Schematic
 │   └── anim-reflex2-frame-warp.gif      # §6  Schematic (announced feature)

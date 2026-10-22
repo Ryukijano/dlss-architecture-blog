@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="Segoe UI, Arial, sans-serif">
+  <title>Optical flow: hardware OFA (DLSS 3) versus AI optical flow (DLSS 4)</title>
+  <rect width="960" height="520" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Optical flow: from a fixed-function block to a neural network</text>
+  <defs>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+
+  <!-- Row 1: DLSS 3 -->
+  <text x="30" y="70" font-size="16" font-weight="600" fill="#c77700">DLSS 3 Frame Generation (RTX 40): hardware Optical Flow Accelerator</text>
+  <g font-size="14" text-anchor="middle" fill="#1a1a1a">
+    <rect x="30" y="84" width="120" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="90" y="118">Frame N-1</text>
+    <rect x="170" y="84" width="120" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="230" y="118">Frame N</text>
+    <rect x="330" y="84" width="180" height="58" rx="8" fill="#fff4e5" stroke="#c77700" stroke-width="2"/><text x="420" y="110">OFA block</text><text x="420" y="130" font-size="12" fill="#444">fixed function, on-chip</text>
+    <rect x="550" y="84" width="120" height="58" rx="8" fill="#f2f2f2" stroke="#666" stroke-width="2"/><text x="610" y="118">Flow field</text>
+    <rect x="710" y="84" width="220" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="820" y="110">Frame-gen CNN</text><text x="820" y="130" font-size="12" fill="#444">autoencoder</text>
+  </g>
+  <g stroke="#555" stroke-width="2" marker-end="url(#ao)"><line x1="150" y1="113" x2="168" y2="113"/><line x1="290" y1="113" x2="328" y2="113"/><line x1="510" y1="113" x2="548" y2="113"/><line x1="670" y1="113" x2="708" y2="113"/></g>
+  <rect x="710" y="164" width="220" height="40" rx="8" fill="#ffffff" stroke="#888"/>
+  <text x="820" y="189" text-anchor="middle" font-size="13" fill="#1a1a1a">Engine motion vectors and depth</text>
+  <line x1="820" y1="164" x2="820" y2="144" stroke="#555" stroke-width="2" marker-end="url(#ao)"/>
+
+  <!-- Row 2: DLSS 4 -->
+  <text x="30" y="250" font-size="16" font-weight="600" fill="#2d5a00">DLSS 4 and later (RTX 40 and 50): AI optical flow model</text>
+  <g font-size="14" text-anchor="middle" fill="#1a1a1a">
+    <rect x="30" y="264" width="120" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="90" y="298">Frame N-1</text>
+    <rect x="170" y="264" width="120" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="230" y="298">Frame N</text>
+    <rect x="330" y="264" width="180" height="58" rx="8" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/><text x="420" y="290">AI flow model</text><text x="420" y="310" font-size="12" fill="#444">runs on Tensor cores</text>
+    <rect x="550" y="264" width="120" height="58" rx="8" fill="#f2f2f2" stroke="#666" stroke-width="2"/><text x="610" y="298">Learned flow</text>
+    <rect x="710" y="264" width="220" height="58" rx="8" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/><text x="820" y="290">Synthesis network</text><text x="820" y="310" font-size="12" fill="#444">split: shared half and per-frame half</text>
+  </g>
+  <g stroke="#555" stroke-width="2" marker-end="url(#ao)"><line x1="150" y1="293" x2="168" y2="293"/><line x1="290" y1="293" x2="328" y2="293"/><line x1="510" y1="293" x2="548" y2="293"/><line x1="670" y1="293" x2="708" y2="293"/></g>
+  <rect x="710" y="344" width="220" height="40" rx="8" fill="#ffffff" stroke="#888"/>
+  <text x="820" y="369" text-anchor="middle" font-size="13" fill="#1a1a1a">Engine motion vectors and depth</text>
+  <line x1="820" y1="344" x2="820" y2="324" stroke="#555" stroke-width="2" marker-end="url(#ao)"/>
+
+  <!-- Notes -->
+  <g font-size="14" fill="#1a1a1a">
+    <text x="30" y="420">· OFA: fixed-function, Turing and newer, works independently of CUDA cores. It estimates per-block flow.</text>
+    <text x="30" y="440">· DLSS 3 calls the OFA once per generated frame, which made multi-frame generation costly (NVIDIA).</text>
+    <text x="30" y="460">· DLSS 4 replaces it with a learned model. NVIDIA says the new FG model is 40% faster, with 30% less VRAM.</text>
+    <text x="30" y="480">· Whether the OFA block still exists on RTX 50 silicon is not stated in NVIDIA's public DLSS material.</text>
+  </g>
+  <text x="480" y="508" text-anchor="middle" font-size="13" fill="#444">Source: NVIDIA DLSS 3 and DLSS 4 announcements; ADLR DLSS 4 page; NVIDIA Optical Flow SDK documentation.</text>
+</svg>
