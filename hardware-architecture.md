@@ -69,9 +69,9 @@ Tensor cores run matrix multiplies. The number format decides how many operation
 
 **Read the headline numbers carefully.** NVIDIA's "AI TOPS" figures use each generation's lowest precision and sparsity, so they are not comparable. RTX 3090 is 285 TFLOPS FP16 sparse. RTX 4090 is 1,321 TOPS FP8 sparse. RTX 5090 is 3,352 TOPS FP4 sparse. At matched precision the generational gain is much smaller.
 
-### What RTX 20 and RTX 30 lack
+### What RTX 20 and RTX 30 lack—and what that means
 
-RTX 20 and RTX 30 cards have no native FP8. NVIDIA says the 4.5 Transformer's M and L presets therefore cost more on those cards, and recommends Preset K there. This is a direct hardware limit on which DLSS presets are efficient.
+RTX 20 and RTX 30 cards have no native FP8. NVIDIA says DLSS 4.5 Super Resolution's M and L presets therefore cost more on those cards, and recommends Preset K there. For DLSS 5 community ports, lack of FP8 is an efficiency problem, not a proof of impossibility: an FP16-compiled model has been demonstrated on SM86. It still costs much more time per frame than the Ada FP8 path and is not the same official runtime/model combination.
 
 ---
 
@@ -140,16 +140,17 @@ So for a 4x mode, the expensive half runs once for the pair of rendered frames (
 
 NVIDIA does not describe the timing input. A third-party reverse engineering of `nvngx_dlssg.dll` (the mfg-unlock project) reports that the interpolation position is `t = index / (count + 1)`. For 4x that gives t = 1/4, 2/4, and 3/4. For 6x it gives five positions, from 1/6 to 5/6. This matches NVIDIA's description, but it is not an NVIDIA disclosure.
 
-### 6.3 Modes
+### 6.3 Official modes and community unlocks
 
-| Mode | Generated frames per rendered frame | Hardware |
+| Mode | Official NVIDIA support | Community result |
 |---|---|---|
-| 2x Frame Generation | 1 | RTX 40 and RTX 50 |
-| 4x MFG (DLSS 4, Jan 2025) | up to 3 | RTX 50 |
-| 6x MFG (DLSS 4.5) | up to 5 | RTX 50 |
-| Dynamic MFG (DLSS 4.5) | changes between 1x and the 6x max | RTX 50 |
+| 2x Frame Generation | RTX 40 and RTX 50 | RTX 30/20 can run via projects such as `dlssg_for_sm86`, with compatible games/runtime |
+| 3x/4x MFG | RTX 50 | RTX 40 NVIDIA-model DLSS-G unlocks are tested; RTX 30 backend/kernel ports exist |
+| 5x/6x and Dynamic MFG | RTX 50 | Some unlockers expose these on RTX 30/40, but max multiplier depends on game/plugin/runtime; pacing and compatibility vary |
 
-NVIDIA describes Dynamic MFG as adjusting the multiplier to reach a target frame rate or the display's maximum refresh rate. NVIDIA's own caveat is that Dynamic mode is not compatible with frame-rate limiters or V-Sync.
+NVIDIA describes Dynamic MFG as adjusting the multiplier to reach a target frame rate or the display's maximum refresh rate. Its app rollout requires a compatible game/driver; the official dynamic override is not a promise that every community unlocker can use Dynamic mode.
+
+A critical terminology distinction: a mod's x6 output may be **NVIDIA-model DLSS-G MFG** (patched architecture gate plus a compatible NVIDIA runtime), or **hybrid frame generation** (for example, one NVIDIA DLSS-G frame plus FSR 3.1-generated frames on RTX 40, or FSR-generated frames on RTX 20/30). Both can raise the output-frame counter; only the former runs NVIDIA's MFG model for those frames. Check the implementation, not just the menu label.
 
 ### 6.4 The workload
 
@@ -182,17 +183,34 @@ NVIDIA's Blackwell architecture material also names:
 - **Memory:** GDDR7 with PAM3 signaling.
 - **Media:** a 9th-gen NVENC and 6th-gen NVDEC, as listed in the architecture material.
 
-### 7.4 What RTX 40 gets, and what it cannot run
+### 7.4 RTX 50 versus RTX 40/30: actual advantages, not just gates
 
-| | RTX 40 (Ada) | RTX 50 (Blackwell) |
-|---|---|---|
-| Transformer Super Resolution, Ray Reconstruction, DLAA | Yes (all RTX GPUs) | Yes |
-| 2x Frame Generation with the new learned flow model | Yes | Yes |
-| 4x and 6x MFG, Dynamic MFG | No (NVIDIA) | Yes |
-| Hardware Flip Metering in the display engine | No (NVIDIA) | Yes |
-| DLSS 5 neural rendering | No official support yet (NVIDIA plans it) | Yes |
+| Capability | RTX 30 (Ampere) | RTX 40 (Ada) | RTX 50 (Blackwell) |
+|---|---|---|---|
+| FP8 Tensor Core acceleration | No | Yes | Yes, newer Tensor Core generation |
+| FP4 Tensor Core acceleration | No | No | Yes |
+| Native NVIDIA 2x Frame Generation | Not officially enabled; community SM86/SM75 backends exist | Yes | Yes |
+| Official NVIDIA 4x/6x MFG | No | No | Yes |
+| Community NVIDIA DLSS-G MFG | SM86 backend/runtime projects; D3D12-focused | Architecture-check patches; tested on Ada | Native |
+| Hardware Flip Metering | No | No | Yes, in the display engine |
+| DLSS 5 official path | No | RTX 40 expansion planned by NVIDIA, no date | Yes |
+| DLSS 5 community path | Patched SM86 PTX / approximate FP16 build demonstrated | Blackwell kernels replaced with Ada-compatible binaries | Native runtime/model path |
 
-Third-party work has found that RTX 40 can execute the MFG kernels (`nvngx_dlssg` includes sm_89 binaries), and that the RTX 50 gate looks like a software check on the GPU architecture ID. Those findings are unofficial and I have not tested them.
+**The core architectural gap is efficiency and predictability, not a simple ability/no-ability switch.** The RTX 40 MFG unlock patches the software architecture gate and works around the fact that Ada has no Blackwell display-engine metering. NVIDIA's frame-generation network can execute on Ada Tensor Cores, but scheduling the presents falls back to software/CPU pacing. The KTH thesis found higher frame-time variance on an RTX 4090 than an RTX 5080 even at ordinary 2x FG. A later Tom's Hardware test verified 4x MFG on RTX 40 in *Cyberpunk 2077*: it found the feature visibly smooth on a high-refresh VRR display, but Blackwell scaled better and had lower latency. Those are measured comparisons, not proof every game or card behaves the same.
+
+RTX 30's community routes have more moving parts. The `dlssg_for_sm86` project supplies a compatible DLSS-G runtime/backend and kernel packs for Ampere SM86 (and Turing SM75), currently focusing on Windows/D3D12 games that already integrate DLSS Frame Generation. Its own README reports that some optimized kernels once produced corrupted frames or driver resets after feature recreation; a later release fixed the tested case. It also warns that Vulkan support is experimental/limited. Its published game captures are useful but the author explicitly says they are not a complete frame-time, latency, or long-duration stability study. The separate MFG Unlocker v1.6.1 release notes say its RTX 30 DLSS-G path uses NVIDIA driver's flip-pacing path by default to reduce stalls at 3x and above; this is not the Blackwell display-engine Flip Metering hardware path.
+
+**MFG results are not automatically lower-latency results.** The game still simulates and samples input at the base render rate. A 40-to-160 FPS output can look smoother, but it does not become 160 fresh game-state updates per second. The Tom's Hardware test used about 60 ms as its chosen average-latency threshold; the RTX 4090 through RTX 4070 stayed below it for 4x MFG alone in its test setup, but adding the DLSS 5 mod raised latency past that threshold for most Ada cards at 1440p. This is one workload, one metric, and one monitor/test setup—not a universal promise.
+
+### 7.5 DLSS 5 on RTX 40 and RTX 30
+
+The community DLSS 5 ports target a different stage from MFG: they insert a neural-rendering pass after the game's ordinary rendering. That late position means a wrapper can often feed it color and motion information without rewriting the whole engine integration. It does **not** mean the mod has the developer's full semantic masks, carefully authored motion, HDR path, or title-specific art direction.
+
+- **Ada / RTX 40:** Uncle Burrito's patch replaced Blackwell-only CUDA binaries in the leaked DLSS-NR library with Ada-compatible binaries. A *Control* demo on RTX 4090 was reported around 82 FPS with the pass versus roughly 130–135 FPS without it. Tom's Hardware's combined *Cyberpunk 2077* test found additional latency and wider gaps between average FPS and 1% lows, especially on lower Ada cards. NVIDIA has said official RTX 40 support is planned after further RTX 50 tuning; no date was given.
+- **Ampere / RTX 30:** the first FP8-oriented build was extremely slow because these GPUs lack native FP8. Later community builds replaced or recompiled the path for SM86 using FP16. TechPowerUp reported an RTX 2060 community demo and RTX 3080/3090-class cases around 25–35 FPS in selected games/resolutions, while Tom's Hardware collected many single-digit or 20–40 FPS results with noisy/shimmering images. Results vary widely by title/settings; these do not establish near-RTX-50 performance.
+- **Why Ampere falls behind:** FP16 is supported, so the model is not fundamentally impossible. But the model/runtime is tuned for FP8 and Blackwell/Ada paths. FP16 uses more compute and memory traffic; Ampere also has fewer Tensor Core generations/throughput and less bandwidth than current high-end Blackwell cards. Community FP16/PTX builds are alternate implementations, not proof of numerical or visual equivalence to the official FP8 runtime.
+
+Treat all old-GPU DLSS 5 demonstrations as **compatibility experiments**, not as supported ports. Some use a leaked proprietary runtime, other builds recompile/approximate kernels, and some all-in-one tools combine it with unrelated frame-generation models. A screenshot or FPS counter alone cannot establish temporal quality, end-to-end latency, stability, or that the intended NVIDIA model generated every displayed frame.
 
 ---
 
@@ -226,19 +244,33 @@ NVIDIA's October 2026 update says the model is now about 118 million parameters,
 
 ---
 
-## 9. What NVIDIA does not publish
+## 9. Risks and boundaries of community builds
+
+- **Per-game compatibility:** most native MFG unlocks need a game with Streamline DLSS Frame Generation already wired in. API, Streamline/plugin version, bundled `nvngx_dlssg.dll`, and per-game multiplier caps can determine whether a mode initializes. Some older games need a newer runtime; changing binaries can also break the game.
+- **Pacing is a feature, not a checkbox:** unlock only, without a pacing workaround, can produce stacked or uneven frames. Ada/Ampere do not gain Blackwell's hardware Flip Metering when a software check is patched. Community pacers may improve delivery but are not the same hardware path.
+- **Generated FPS is not base FPS:** interpolation does not run game simulation or sample new input for each generated frame. High multipliers make a weak base frame rate more visible and can add artifacts/latency. Use frame-time, presented/displayed-time, and input-latency measurements—not just an overlay FPS number.
+- **Visual quality and buffer inputs:** motion-vector errors, disocclusion, particle effects, reflections, HUD composition, or a synthetic motion field can create ghosting, flicker, UI junk, and shimmer. A wrapper may not receive the same buffers as a native game integration.
+- **Anti-cheat and stability:** proxy DLLs/add-ons modify or hook a game's render process. Do not use them in multiplayer or anti-cheat-protected sessions unless the game publisher explicitly permits them. They can trigger anti-cheat, crash after a driver/game update, conflict with overlays, or corrupt output.
+- **DLSS 5 redistribution/security:** many DLSS 5 experiments use leaked/proprietary runtime files that projects ask users to supply themselves. Avoid unofficial download mirrors and installers; use the project's source/release page, verify files, and understand the licence/redistribution uncertainty.
+
+These are community experiments. Verify the current release notes and game compatibility before testing, keep a clean copy of game files, and use single-player/offline titles.
+
+---
+
+## 10. What NVIDIA does not publish
 
 - Layer counts, token sizes, and attention layouts for the SR and RR transformers.
 - Whether the OFA block exists on RTX 50 silicon.
 - The exact timestep conditioning used by MFG.
 - The input color space DLSS expects before tonemapping (check the Streamline programming guide before writing engine code).
-- Measured pacing results with Flip Metering on and off.
+- Measured pacing results with Flip Metering on and off across all games.
+- A guarantee of visual/latency parity for the unofficial Ada/Ampere ports.
 
 Where a claim depends on one of these, this document says so.
 
 ---
 
-## 10. Sources
+## 11. Sources
 
 NVIDIA:
 
@@ -262,3 +294,12 @@ Third-party, used only where noted:
 - mfg-unlock project (reverse engineering of `nvngx_dlssg.dll`): https://deepwiki.com/matiasLombo/mfg-unlock/3.2-multi-frame-generation-pipeline
 - PresentMon pull request adding DLSS 4 flip-metering events: https://github.com/GameTechDev/PresentMon/pull/440
 - Tom's Hardware, DLSS 4.5 Dynamic MFG and Preset B: https://www.tomshardware.com/pc-components/gpus/nvidia-dlss-4-5-dynamic-mfg-plus-5x-and-6x-framegen-modes-enter-beta-for-rtx-50-series-users-update-offers-greater-control-over-generated-frame-rates-and-more-headroom-for-high-refresh-rate-displays
+- Tom's Hardware, tested MFG on RTX 40: https://www.tomshardware.com/pc-components/gpus/we-tested-dlss-multi-frame-generation-on-rtx-40-series-gpus-new-mod-brings-rtx-50-series-exclusive-feature-to-older-cards-and-it-really-works
+- Tom's Hardware, interviews with the MFG and DLSS 5 modders: https://www.tomshardware.com/pc-components/gpus/meet-the-modders-porting-ringfenced-dlss-features-to-older-gpus-how-dlss-5-and-multi-frame-generation-were-unlocked-for-older-architectures
+- MFG Unlocker / RTX MFG Universal, community documentation and releases: https://github.com/dashdogy/MFG-Unlocker
+- `mfg-unlock`, Ada gate and pacing patches: https://github.com/matiasLombo/mfg-unlock
+- `dlssg_for_sm86`, Ampere/Turing compatible backend and runtime: https://github.com/sdli1995/dlssg_for_sm86
+- `dlss-unlocked`, hybrid route bundler: https://github.com/ShyVortex/dlss-unlocked
+- TechPowerUp, DLSS 5 on older GPUs / FP16 builds: https://www.techpowerup.com/review/nvidia-dlss-5-technical-preview/5.html
+- Tom's Hardware, DLSS 5 on Ampere community tests: https://www.tomshardware.com/pc-components/gpus/dlss-5-mod-brings-next-gen-tech-to-old-ampere-gpus-but-frame-rates-are-horrible-most-games-tank-to-single-digits-high-end-gpus-can-hit-up-to-40-fps-in-some-cases
+- KTH thesis, MFG feasibility on RTX 4090: https://www.diva-portal.org/smash/get/diva2:1985716/FULLTEXT01.pdf

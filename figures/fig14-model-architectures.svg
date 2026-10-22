@@ -65,9 +65,9 @@
     <text x="202" y="316">· Inputs: current and prior frame,</text>
     <text x="202" y="332">  OFA flow field, motion vectors, depth</text>
     <text x="202" y="350">· One generated frame per real frame</text>
-    <text x="202" y="368">· Needs the RTX 40 OFA hardware</text>
-    <text x="202" y="386">· Multi-frame generation not offered</text>
-    <text x="202" y="406" fill="#444">Hudless and UI buffers passed in</text>
+    <text x="202" y="368">· Official DLSS 3 path uses RTX 40 OFA</text>
+    <text x="202" y="386">· RTX 30 ports use community kernels</text>
+    <text x="202" y="406" fill="#444">Unofficial; hudless/UI inputs still matter</text>
   </g>
 
   <rect x="455" y="270" width="250" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="2"/>
@@ -76,9 +76,9 @@
     <text x="467" y="316">· Learned optical flow replaces the OFA</text>
     <text x="467" y="334">· Network split: shared half once per pair,</text>
     <text x="467" y="350">  small half per generated frame</text>
-    <text x="467" y="368">· Up to 3 generated frames (4x), RTX 50</text>
-    <text x="467" y="386">· New model also on RTX 40 (40% faster,</text>
-    <text x="467" y="402">  30% less VRAM, NVIDIA)</text>
+    <text x="467" y="368">· Official MFG up to 4x on RTX 50</text>
+    <text x="467" y="386">· New 2x FG model on RTX 40 and 50</text>
+    <text x="467" y="402">· Community MFG unlocks on RTX 30/40</text>
   </g>
 
   <rect x="725" y="270" width="215" height="150" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
@@ -89,7 +89,7 @@
     <text x="737" y="352">· Preset B FG model reads extra UI</text>
     <text x="737" y="368">  buffers (Tom's Hardware report)</text>
     <text x="737" y="386">· Preset B: RTX 40 and 50 (report)</text>
-    <text x="737" y="406" fill="#444">Dynamic MFG and 6x: RTX 50 only</text>
+    <text x="737" y="406" fill="#444">Mods expose >2x on RTX 30/40</text>
   </g>
 
   <!-- Row 3: DLSS 5 -->
@@ -127,8 +127,8 @@
     <text x="737" y="486">· Launched Sept 2026, NBA 2K27</text>
     <text x="737" y="504">· Oct update: ~118M parameters,</text>
     <text x="737" y="520">  half the GPU overhead</text>
-    <text x="737" y="540">· RTX 50 only</text>
-    <text x="737" y="558">· RTX 40 official support planned,</text>
-    <text x="737" y="574">  no date</text>
+    <text x="737" y="540">· Official: RTX 50; RTX 40 planned</text>
+    <text x="737" y="558">· Community ports: RTX 40 patched</text>
+    <text x="737" y="574">· RTX 30 FP16 builds; heavy cost</text>
   </g>
 </svg>

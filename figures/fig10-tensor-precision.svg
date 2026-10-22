@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="Segoe UI, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" font-family="Segoe UI, Arial, sans-serif">
   <title>Tensor core generations and supported precisions</title>
-  <rect width="960" height="470" fill="#ffffff"/>
+  <rect width="960" height="490" fill="#ffffff"/>
   <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">Tensor cores by generation: what each one can compute</text>
   <text x="480" y="56" text-anchor="middle" font-size="13" fill="#444">The 50 series adds precisions and datapath features. Its tensor core count is higher, but its SM count is the same.</text>
 
@@ -43,5 +43,6 @@
     <text x="50" y="414">The headline numbers use each generation's lowest supported precision, so they are not like-for-like.</text>
     <text x="50" y="434">Blackwell's gain is mostly precision support (FP4, FP8 engine) and scheduling, not a much larger SM array.</text>
     <text x="50" y="454">Consumer Blackwell (sm_120) does not have the datacenter Tensor Memory (TMEM) found on GB100/B200.</text>
+    <text x="50" y="474">RTX 30 FP8 absence is an efficiency gap: community FP16 DLSS 5 builds run on SM86, but much slower.</text>
   </g>
 </svg>

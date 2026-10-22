@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" font-family="Segoe UI, Arial, sans-serif">
+  <title>Community MFG and DLSS 5 routes on RTX 30, RTX 40, and RTX 50</title>
+  <rect width="960" height="620" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#1a1a1a">What the community unlocks actually run</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#444">Same menu multiplier does not always mean same model, pacing hardware, or support status.</text>
+
+  <!-- Headers -->
+  <g font-size="16" font-weight="600" text-anchor="middle">
+    <text x="315" y="88" fill="#3a6bc4">RTX 30 · Ampere</text>
+    <text x="580" y="88" fill="#c77700">RTX 40 · Ada</text>
+    <text x="832" y="88" fill="#2d5a00">RTX 50 · Blackwell</text>
+  </g>
+
+  <!-- row labels -->
+  <rect x="20" y="105" width="150" height="166" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+  <text x="95" y="160" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Frame</text>
+  <text x="95" y="182" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Generation /</text>
+  <text x="95" y="204" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">MFG</text>
+  <text x="95" y="235" text-anchor="middle" font-size="12" fill="#444">Can the pipeline run?</text>
+
+  <!-- RTX30 MFG -->
+  <rect x="190" y="105" width="250" height="166" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+  <text x="315" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Community SM86 backend</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="202" y="154">· Compatible NVIDIA DLSS-G runtime</text>
+    <text x="202" y="172">  and kernels, up to 6x if allowed</text>
+    <text x="202" y="192">· D3D12; game must have DLSS-G</text>
+    <text x="202" y="212">· No native FP8; limited throughput</text>
+    <text x="202" y="232">· Driver pacing; not Blackwell display HW</text>
+    <text x="202" y="254" fill="#555">FSR/XeSS hybrid routes are separate</text>
+  </g>
+
+  <!-- RTX40 MFG -->
+  <rect x="455" y="105" width="250" height="166" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+  <text x="580" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Patched NVIDIA DLSS-G</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="467" y="154">· Patch architecture check / frame cap</text>
+    <text x="467" y="172">· NVIDIA's learned flow + FG model</text>
+    <text x="467" y="192">· Native FP8; 3x–6x tested in games</text>
+    <text x="467" y="212">· No Blackwell display-engine metering</text>
+    <text x="467" y="232">· Software pacer; version/game sensitive</text>
+    <text x="467" y="254" fill="#555">Blackwell still scales/latencies better</text>
+  </g>
+
+  <!-- RTX50 MFG -->
+  <rect x="720" y="105" width="220" height="166" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+  <text x="830" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Official native MFG</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="732" y="154">· 5th-gen Tensor Cores</text>
+    <text x="732" y="172">· Hardware Flip Metering</text>
+    <text x="732" y="192">· 4x / 6x and Dynamic MFG</text>
+    <text x="732" y="212">· Full game/driver integration</text>
+    <text x="732" y="232">· Most predictable pacing path</text>
+    <text x="732" y="254" fill="#555">Still limited by base FPS and latency</text>
+  </g>
+
+  <!-- row 2 -->
+  <rect x="20" y="290" width="150" height="166" rx="10" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+  <text x="95" y="350" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">DLSS 5</text>
+  <text x="95" y="372" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Neural</text>
+  <text x="95" y="394" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a">Rendering</text>
+  <text x="95" y="425" text-anchor="middle" font-size="12" fill="#444">Can inference run?</text>
+
+  <rect x="190" y="290" width="250" height="166" rx="10" fill="#eef4ff" stroke="#3a6bc4" stroke-width="2"/>
+  <text x="315" y="315" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Patched Ampere kernels</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="202" y="339">· SM86 PTX / community FP16 build</text>
+    <text x="202" y="357">· Avoids native-FP8 dependency</text>
+    <text x="202" y="377">· RTX 3080/3090 tests: usable only</text>
+    <text x="202" y="395">  in reduced settings/resolution</text>
+    <text x="202" y="415">· Often single-digit FPS on weaker cards</text>
+    <text x="202" y="439" fill="#555">Image/latency parity not established</text>
+  </g>
+
+  <rect x="455" y="290" width="250" height="166" rx="10" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
+  <text x="580" y="315" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Patched Ada binaries</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="467" y="339">· Replace Blackwell-only CUDA kernels</text>
+    <text x="467" y="357">  with Ada-compatible binaries</text>
+    <text x="467" y="377">· Native FP8 tensor acceleration</text>
+    <text x="467" y="395">· RTX 4090 shown around 82 vs</text>
+    <text x="467" y="413">  130–135 FPS in one Control test</text>
+    <text x="467" y="439" fill="#555">Large cost; title-specific artifacts</text>
+  </g>
+
+  <rect x="720" y="290" width="220" height="166" rx="10" fill="#e9f7d9" stroke="#76b900" stroke-width="3"/>
+  <text x="830" y="315" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a">Official RTX 50 path</text>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="732" y="339">· Native Blackwell kernels</text>
+    <text x="732" y="357">· FP8 + 5th-gen Tensor Cores</text>
+    <text x="732" y="377">· Tuned runtime and developer hooks</text>
+    <text x="732" y="395">· RTX 50 only in current support matrix</text>
+    <text x="732" y="415">· October model reduced overhead</text>
+    <text x="732" y="439" fill="#555">RTX 40 support planned, no date</text>
+  </g>
+
+  <!-- bottom callout -->
+  <rect x="30" y="480" width="900" height="112" rx="10" fill="#fff8e8" stroke="#c77700" stroke-width="1.5"/>
+  <text x="50" y="508" font-size="15" font-weight="600" fill="#1a1a1a">Interpret every "6x" claim by asking what actually generates the frames.</text>
+  <g font-size="13" fill="#444">
+    <text x="50" y="534">NVIDIA-model MFG: its own flow/synthesis networks, unlocked outside official support on RTX 30/40.</text>
+    <text x="50" y="554">Hybrid MFG: DLSS-G may create one frame while FSR 3.1 / XeSS creates the rest; visual and latency behavior differs.</text>
+    <text x="50" y="574">Neither route adds Blackwell Flip Metering to older GPUs. MFG raises displayed FPS, not the rate of new game simulation/input samples.</text>
+  </g>
+</svg>

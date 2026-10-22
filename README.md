@@ -8,16 +8,16 @@ A technical article, with original figures and reproducible scripts, on NVIDIA's
 
 ## Status at a Glance (22 October 2026)
 
-| Technology | Status | Official hardware | Notes |
-|---|---|---|---|
-| **Super Resolution**, 2nd-gen Transformer (DLSS 4.5) | Shipping since 14 Jan 2026 | All GeForce RTX | Presets M (Performance), L (4K Ultra Performance), K (other modes) |
-| **Ray Reconstruction**, 2nd-gen Transformer | Shipping since 25 Aug 2026 | All GeForce RTX | Preset F; +35% compute, +20% parameters vs prior model (NVIDIA) |
-| **Frame Generation** (2x) | Shipping since 2022 | RTX 40 and RTX 50 | AI optical-flow model since DLSS 4 |
-| **Multi Frame Generation**, 4x | Shipping since Jan 2025 | RTX 50 only | Up to 3 generated frames per rendered frame |
-| **Dynamic MFG and 6x** | Rolled out via NVIDIA app, 31 Mar 2026 | RTX 50 only | Up to 5 generated frames; driver 595.97 WHQL or newer |
-| **Reflex 1** (Low Latency) | Shipping since 2020 | GeForce GTX 900 and newer | Just-in-time CPU submission |
-| **Reflex 2**, Frame Warp | **Announced Jan 2025, not shipping** | RTX 50 first, others later | NVIDIA's page still says "coming soon" |
-| **DLSS 5**, 3D-Guided Neural Rendering | Launched Sept 2026 (NBA 2K27); October model update | RTX 50 only | RTX 40 official support planned after RTX 50 tuning, no date |
+| Technology | Official support | Community status / caveat |
+|---|---|---|
+| **Super Resolution**, 2nd-gen Transformer (DLSS 4.5) | Shipping on all GeForce RTX | RTX 20/30 lack native FP8; Preset M/L can cost more than K |
+| **Ray Reconstruction**, 2nd-gen Transformer | Shipping on all GeForce RTX | Preset F; +35% compute and +20% parameters vs prior model (NVIDIA) |
+| **Frame Generation** (2x) | Shipping on RTX 40/50 | RTX 30/20 DLSS-G backends exist, but are community ports with API/runtime constraints |
+| **Multi Frame Generation**, 3x–6x | RTX 50 only officially | NVIDIA-model DLSS-G unlocks tested on RTX 40 and ports on RTX 30; hybrid FSR/XeSS routes also exist |
+| **Dynamic MFG and 6x** | NVIDIA app rollout for RTX 50 | Community unlockers expose higher multipliers where game/runtime allows; pacing is not Blackwell Flip Metering |
+| **Reflex 1** | Shipping on GeForce GTX 900 and newer | Injector-based latency emulation is not the same as engine-integrated Reflex |
+| **Reflex 2**, Frame Warp | Announced; not shipping | NVIDIA page still says "coming soon" |
+| **DLSS 5**, 3D-Guided Neural Rendering | Shipping on RTX 50; RTX 40 expansion planned | Community builds demonstrated on RTX 40/30, including FP16 fallback on Ampere; results vary widely |
 
 ---
 
@@ -107,6 +107,12 @@ The companion article [`hardware-architecture.md`](hardware-architecture.md) cov
 
 ![How the DLSS models changed architecture](figures/fig14-model-architectures.svg)
 
+**Community routes on RTX 30/40/50** (`figures/fig15-community-routes.svg`)
+
+![Community MFG and DLSS 5 routes on RTX 30, RTX 40, and RTX 50](figures/fig15-community-routes.svg)
+
+The important distinction is whether the mod keeps NVIDIA's DLSS-G model or swaps in FSR/XeSS for some generated frames. The former still lacks Blackwell's hardware Flip Metering on older cards; the latter is a hybrid path, not native DLSS MFG.
+
 ## Repository Layout
 
 ```text
@@ -129,6 +135,7 @@ The companion article [`hardware-architecture.md`](hardware-architecture.md) cov
 │   ├── fig12-mfg-split.svg              # HW  MFG network split
 │   ├── fig13-flip-metering.svg          # HW  CPU pacing vs Flip Metering
 │   ├── fig14-model-architectures.svg    # HW  Model architectures by generation
+│   ├── fig15-community-routes.svg       # HW  Native unlocks vs hybrid routes
 │   ├── anim-jitter-accumulation.gif     # §3  Schematic
 │   ├── anim-mfg-pacing.gif              # §5  Schematic
 │   └── anim-reflex2-frame-warp.gif      # §6  Schematic (announced feature)
@@ -183,7 +190,16 @@ Primary NVIDIA sources:
 - **Support matrix:** [DLSS technologies page](https://www.nvidia.com/en-us/geforce/technologies/dlss/)
 - **SDK:** [Streamline](https://github.com/NVIDIA-RTX/Streamline)
 
-Third-party reporting, used only where noted in the article: The Verge and TechPowerUp (DLSS 5 on RTX 40), VideoCardz and OC3D (Reflex 2 status), Tom's Hardware (DLSS 4.5 beta and "Preset B").
+Community projects and independent testing (used with their own caveats in the article):
+
+- [MFG Unlocker / RTX MFG Universal](https://github.com/dashdogy/MFG-Unlocker) — current release notes list RTX 30 and 40 unlock paths, but require a game/runtime with DLSS-G integration.
+- [`mfg-unlock`](https://github.com/matiasLombo/mfg-unlock) — Ada architecture-gate and pacing patches, with measured frame-delivery caveats.
+- [`dlssg_for_sm86`](https://github.com/sdli1995/dlssg_for_sm86) — compatible DLSS-G backend/runtime for RTX 30 SM86 and RTX 20 SM75; D3D12-focused.
+- [`dlss-unlocked`](https://github.com/ShyVortex/dlss-unlocked) — bundles different generation paths; some RTX 20/30 routes use FSR 3.1, not NVIDIA's MFG model.
+- [Tom's Hardware: RTX 40 MFG test](https://www.tomshardware.com/pc-components/gpus/we-tested-dlss-multi-frame-generation-on-rtx-40-series-gpus-new-mod-brings-rtx-50-series-exclusive-feature-to-older-cards-and-it-really-works) and [DLSS 5 modder interview](https://www.tomshardware.com/pc-components/gpus/meet-the-modders-porting-ringfenced-dlss-features-to-older-gpus-how-dlss-5-and-multi-frame-generation-were-unlocked-for-older-architectures).
+- [TechPowerUp: DLSS 5 older-GPU experiments](https://www.techpowerup.com/review/nvidia-dlss-5-technical-preview/5.html) and [Tom's Hardware: Ampere results](https://www.tomshardware.com/pc-components/gpus/dlss-5-mod-brings-next-gen-tech-to-old-ampere-gpus-but-frame-rates-are-horrible-most-games-tank-to-single-digits-high-end-gpus-can-hit-up-to-40-fps-in-some-cases).
+
+These are unofficial, version-sensitive projects. Community reports may involve leaked/proprietary runtimes, binary patches, proxy DLLs, or hybrid FSR/XeSS output. Treat benchmarks as specific to their test configuration. Do not use injected mods in anti-cheat multiplayer unless the publisher explicitly allows them, and avoid untrusted mirrors/installers.
 
 Personal runtime observations (Cyberpunk 2077 and Crimson Desert on an RTX 4090) are labeled as such in the article. They are log-based and were not independently measured.
 
