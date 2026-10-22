@@ -241,7 +241,7 @@ $stages = @(
 foreach ($st in $stages) {
     $c = New-Canvas 780 300
     $g = $c.G
-    $g.DrawString("NVIDIA Reflex 2: Frame Warp + Predictive Inpainting", $fontTitle, $brDark, 24, 16)
+    $g.DrawString("Reflex 2 Frame Warp (announced, not yet shipping)", $fontTitle, $brDark, 24, 16)
     $g.DrawString($st.Title, $fontBold, $brBlue, 24, 46)
     $g.DrawString($st.Desc, $fontSmall, $brMuted, 24, 68)
 
